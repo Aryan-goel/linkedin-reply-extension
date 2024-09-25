@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ReplyModal from './components/ReplyModal';
 
-function App() {
+const App: React.FC = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleIconClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleInsert = (text: string) => {
+    // Logic to insert the generated text into LinkedIn's input field
+    console.log(text);
+    setModalOpen(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+        type="text"
+        placeholder="LinkedIn Message"
+        onFocus={handleIconClick} // Show icon on focus
+        className="border p-2 w-full"
+      />
+      {isModalOpen && <ReplyModal onClose={() => setModalOpen(false)} onInsert={handleInsert} />}
     </div>
   );
-}
+};
 
 export default App;
